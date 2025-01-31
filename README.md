@@ -12,7 +12,7 @@ sudo apt-get install bash
 
 cd genieacs
 
-chmod +x installGenie.sh
+chmod +x install.sh
 
-./installGenie.sh
+./install.sh
 
