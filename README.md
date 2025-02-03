@@ -15,5 +15,5 @@ cd new-genieacs
 
 chmod +x install.sh
 
-./install.sh
+# bash install.sh
 
