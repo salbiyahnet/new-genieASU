@@ -1,7 +1,7 @@
 # new-genieacs
 apt install git curl -y
 
-git clone https://github.com/salbiyahnet/new-genieacs
+# git clone https://github.com/salbiyahnet/new-genieASU
 ---------------------
 #optional
 
@@ -11,9 +11,7 @@ sudo apt-get install bash
 ---------------------
 ==========install genieacs otomatis===========
 
-cd new-genieacs
+# cd new-genieASU
 
-chmod +x install.sh
-
-# bash install.sh
+# chmod +x install.sh && bash install.sh
 
