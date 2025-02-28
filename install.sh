@@ -205,4 +205,4 @@ for ((i = 5; i >= 1; i--)); do
 done
 
 cd -
-sudo mongorestore --db=genieacs --drop new-genieacs
+sudo mongorestore --db=genieacs --drop new-genieASU
