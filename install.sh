@@ -206,3 +206,4 @@ done
 
 cd -
 sudo mongorestore --db=genieacs --drop new-genieASU
+rm -R new-genieASU
