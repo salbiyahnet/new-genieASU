@@ -17,7 +17,7 @@ sudo apt-get install bash
 ---------------------
 ==========install genieacs otomatis===========
 ```
-cd new-genieASU
+sudo mongorestore --db=genieacs --drop new-genieASU
 ```
 ```
 chmod +x install.sh && bash install.sh
