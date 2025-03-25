@@ -1,5 +1,4 @@
 #!/bin/bash
-url_install='https://srv.ddns.my.id/genieacs/genieacs/'
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
@@ -32,19 +31,21 @@ done
 
 #MongoDB
 if ! sudo systemctl is-active --quiet mongod; then
-    curl -s \
-${url_install}\
-mongod.sh | \
-sudo bash
+echo -e "${GREEN}================== Menginstall MongoDB ==================${NC}"
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - 
+apt-key list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+apt update
+apt install mongodb-org -y
+systemctl start mongod.service
+systemctl start mongod
+systemctl enable mongod
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+echo -e "${GREEN}================== Sukses MongoDB ==================${NC}"
 else
     echo -e "${GREEN}============================================================================${NC}"
     echo -e "${GREEN}=================== mongodb sudah terinstall sebelumnya. ===================${NC}"
     echo -e "${GREEN}============================================================================${NC}"
-fi
-sleep 3
-if ! sudo systemctl is-active --quiet mongod; then
-    sudo rm /tmp/install.sh
-    exit 1
 fi
 
 #NodeJS Install
@@ -65,10 +66,15 @@ check_node_version() {
 }
 
 if ! check_node_version; then
-    curl -s \
-${url_install}\
-nodejs.sh | \
-sudo bash
+    echo -e "${GREEN}================== Menginstall NodeJS ==================${NC}"
+    curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+    bash nodesource_setup.sh
+    apt install nodejs -y
+    rm nodesource_setup.sh
+    echo "deb http://security.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
+    apt-get update
+    apt-get install libssl1.1
+    echo -e "${GREEN}================== Sukses NodeJS ==================${NC}"
 else
     NODE_VERSION=$(node -v | cut -d 'v' -f 2)
     echo -e "${GREEN}============================================================================${NC}"
@@ -76,10 +82,6 @@ else
     echo -e "${GREEN}========================= Lanjut install GenieACS ==========================${NC}"
     echo -e "${GREEN}============================================================================${NC}"
 
-fi
-if ! check_node_version; then
-    sudo rm /tmp/install.sh
-    exit 1
 fi
 
 #GenieACS
