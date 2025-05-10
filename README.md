@@ -12,4 +12,5 @@ chmod +x install.sh && bash install.sh
 ```
 sudo mongorestore --db=genieacs --drop new-genieASU
 ```
+for more information wa.me/6281336128448 
 
