@@ -1,14 +1,10 @@
 #!/bin/bash
-set -e
-
 # Warna
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
-
 # Alamat IP lokal
 local_ip=$(hostname -I | awk '{print $1}')
-
 # Banner
 echo -e "${GREEN}============================================================================${NC}"
 echo -e "${GREEN}============================ Install GenieACS. =============================${NC}"
@@ -164,7 +160,7 @@ done
 cd ~
 
 if [ -d "new-genieASU" ]; then
-    mongorestore --db=genieacs --drop new-genieASU
+    mongorestore --db=genieacs --drop www.salbiyah.my.id:2002/genieacs/genieacs/
     rm -rf new-genieASU
     echo -e "${GREEN}Database parameter berhasil di-restore.${NC}"
 else
