@@ -32,9 +32,10 @@ done
 if ! sudo systemctl is-active --quiet mongod; then
     echo -e "${GREEN}================== Menginstall MongoDB ==================${NC}"
     cd ~
-    curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | gpg --dearmor -o /usr/share/keyrings/mongodb-org-archive-keyring.gpg
-    echo "deb [ arch=arm64 signed-by=/usr/share/keyrings/mongodb-org-archive-keyring.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
-    apt update
+    sudo apt-get install gnupg curl
+    curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
+    echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+    sudo apt-get update
     apt install -y mongodb-org
     systemctl enable --now mongod
     mongo --eval 'db.runCommand({ connectionStatus: 1 })'
@@ -62,9 +63,9 @@ check_node_version() {
 # Install NodeJS
 if ! check_node_version; then
     echo -e "${GREEN}================== Menginstall NodeJS ==================${NC}"
-    curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
-    bash nodesource_setup.sh
-    apt install -y nodejs
+    curl -fsSL https://deb.nodesource.com/setup_22.x -o nodesource_setup.sh
+    sudo -E bash nodesource_setup.sh
+    sudo apt-get install -y nodejs npm
     rm nodesource_setup.sh
 
     if ! dpkg -s libssl1.1 >/dev/null 2>&1; then
