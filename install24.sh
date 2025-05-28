@@ -32,9 +32,9 @@ done
 #MongoDB
 if ! sudo systemctl is-active --quiet mongod; then
 echo -e "${GREEN}================== Menginstall MongoDB ==================${NC}"
-cd -
-curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | apt-key add - 
-apt-key list
+cd ~
+sudo apt-get install gnupg curl
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu noble/mongodb-org/8.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 apt update
 apt install mongodb-org -y
@@ -205,6 +205,6 @@ for ((i = 5; i >= 1; i--)); do
     echo "Lanjut Install Parameter $i. Tekan ctrl+c untuk membatalkan"
 done
 
-cd -
+cd ~
 sudo mongorestore --db=genieacs --drop new-genieASU
 rm -R new-genieASU
