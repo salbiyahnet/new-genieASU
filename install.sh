@@ -68,13 +68,9 @@ check_node_version() {
 
 if ! check_node_version; then
     echo -e "${GREEN}================== Menginstall NodeJS ==================${NC}"
-    curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
-    bash nodesource_setup.sh
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
     apt install nodejs -y
-    rm nodesource_setup.sh
-    echo "deb http://security.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
-    apt-get update
-    apt-get install libssl1.1
+    rm nodesource_setup.sh    
     echo -e "${GREEN}================== Sukses NodeJS ==================${NC}"
 else
     NODE_VERSION=$(node -v | cut -d 'v' -f 2)
