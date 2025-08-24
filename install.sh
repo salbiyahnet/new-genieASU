@@ -33,6 +33,7 @@ done
 if ! sudo systemctl is-active --quiet mongod; then
 echo -e "${GREEN}================== Menginstall MongoDB ==================${NC}"
 cd -
+sudo apt-get install gnupg curl
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - 
 apt-key list
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
